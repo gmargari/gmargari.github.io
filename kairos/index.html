@@ -14,6 +14,7 @@
             var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 
             var checkin = $('#datapicker').datepicker({
+                format: 'dd/mm/yyyy',
                 beforeShowDay: function (date) {
                     return date.valueOf() >= now.valueOf();
                 },
@@ -52,7 +53,7 @@
 </head>
 <body style="background-color: #eeeeee">
 
-    <div class="panel panel-primary" style="width: 500px;  margin-left: auto;  margin-right: auto; margin-top: 10px;">
+    <div class="panel panel-primary" style="width: 500px;  margin-left: auto;  margin-right: auto; margin-top: 10px; margin-bottom: 0px;">
         <!-- Panel heading -->
         <div class="panel-heading">
             <h3 class="panel-title">Ioannina Weather Forecast</h3>
@@ -66,7 +67,13 @@
                 <label class="col-lg-2"><h4>Date:</h4></label>
                 <div class="row">
                     <div class="col-lg-4">
-                        <input id="datapicker" type="text" class="form-control input-md" placeholder="Data CheckIn">
+                        <div class="form-group">
+                            <div class='input-group date' id='datapicker'>
+                                <input id="datapicker" type="text" class="form-control input-md" placeholder="Date">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <a id="forecast" class="btn btn-primary">Predict Weather</a>
@@ -77,7 +84,6 @@
             <div style="height: 200px;" id="forecast-result"></div>
         </div>
     </div>
-
     <p style="text-align: center; margin: 10px">
       <a href="http://gmargari.github.io/"><img style="vertical-align:middle" src="img/more.gif"></a>
     </p>
