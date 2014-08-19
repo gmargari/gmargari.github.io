@@ -58,10 +58,7 @@ def addHtmlHeader(outFile):
 
     <title>{:s}</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
+    <link href="css/bootstrap.3.2.0.min.css" rel="stylesheet">
     <link href="css/landing-page.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
@@ -312,12 +309,8 @@ def addFooter(outFile):
 def addHtmlFooter(outFile):
 
     html_footer = """
-    <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.3.2.0.min.js"></script>
 </body>
 
 </html>
