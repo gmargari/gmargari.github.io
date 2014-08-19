@@ -39,6 +39,14 @@
                 milisecs = Math.random() * 4000;
                 sleep(milisecs, addWeatherImage);
             })
+
+            $.preloadImages = function() {
+              for (var i = 0; i < arguments.length; i++) {
+                $("<img />").attr("src", arguments[i]);
+              }
+            }
+
+            $.preloadImages("img/weezle_rain.png", "img/loading.gif");
         });
     </script>
 </head>
