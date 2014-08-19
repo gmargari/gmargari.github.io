@@ -36,7 +36,7 @@
 
             $('#forecast').on('click', function (e) {
                 addLoadingImage();
-                milisecs = 1000 + Math.random() * 4000; // "calculations" take 1-5 sec
+                milisecs = 3000 + Math.random() * 2000; // "calculations" take 3-5 sec
                 sleep(milisecs, addWeatherImage);
             })
 
