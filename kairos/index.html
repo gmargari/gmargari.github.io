@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <title>Ioannina Weather Forecast</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+    <script type="text/javascript">
+        $(function(){
+            var nowTemp = new Date();
+            var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+            var checkin = $('#datapicker').datepicker({
+                beforeShowDay: function (date) {
+                    return date.valueOf() >= now.valueOf();
+                },
+                autoclose: true
+            });
+
+            checkin.datepicker("update", now);
+
+            function sleep(millis, callback) {
+                setTimeout(function() { callback(); }, millis);
+            }
+
+            function addLoadingImage() {
+                $('#forecast-result').html('<img src="img/loading.gif" class="img-responsive center-block">');
+            }            
+
+            function addWeatherImage() {
+                $('#forecast-result').html('<img src="img/weezle_rain.png" width="200px;" class="img-responsive center-block">');                 
+            }
+
+            $('#forecast').on('click', function (e) {
+                addLoadingImage();
+                milisecs = Math.random() * 4000;
+                sleep(milisecs, addWeatherImage);
+            })
+        });
+    </script>
+</head>
+<body style="background-color: #eeeeee">
+
+    <div class="panel panel-primary" style="width: 500px;  margin-left: auto;  margin-right: auto; margin-top: 10px;">
+        <!-- Panel heading -->
+        <div class="panel-heading">
+            <h3 class="panel-title">Ioannina Weather Forecast</h3>
+        </div>
+        <!-- Panel body -->
+        <div class="panel-body">
+            <!-- Header image -->
+            <img src="img/banner.jpg" class="img-responsive " />
+            <!-- Datepicker and forecast button -->
+            <div class="form-group" style="margin: 0px; margin-top: 10px;">
+                <label class="col-lg-2"><h4>Date:</h4></label>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <input id="datapicker" type="text" class="form-control input-md" placeholder="Data CheckIn">
+                    </div>
+                    <div class="col-lg-4">
+                        <a id="forecast" class="btn btn-primary">Predict Weather</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Forecast result -->
+            <div id="forecast-result"></div>
+        </div>
+    </div>
+
+</body>
+</html>
