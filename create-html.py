@@ -72,21 +72,33 @@ def addHtmlHeader(outFile):
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!-- Google Analytics -->
+    {:s}
+    
+    <!-- Custom stylesheet -->
     {:s}
 </head>
 
 <body>
 """
-    google_analytics = "<!-- Google Analytics -->\n\
-    <script>\n\
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n\
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n\
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)\n\
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n\
-      ga('create', 'UA-53994042-1', 'auto');\n\
-      ga('send', 'pageview');\n\
-    </script>"
-    outFile.write(html_header.format(page_title, google_analytics))
+    google_analytics = """<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53994042-1', 'auto');
+      ga('send', 'pageview');
+    </script>"""
+
+    extra_style = """<style>
+        .space-btn {
+            margin-left: 2px;
+            margin-top: 6px;
+        }
+    </style>
+    """
+    
+    outFile.write(html_header.format(page_title, google_analytics, extra_style))
 
 #===============================================================================
 # addHeader()
@@ -188,8 +200,6 @@ def addContent(outFile):
     <!-- /.content-section-a -->
 """
 
-    page_link_template = "<a href='#{:s}' class='btn btn-primary'>{:s}</a>"
-
     pages_template = """
     <div class="content-section-{:s}" id="{:s}">
         <div class="container">
@@ -211,15 +221,17 @@ def addContent(outFile):
     <!-- /.content-section-{:s} -->
 """
 
-    view_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span> &nbsp;View</a>"
-    source_link_template = "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Source</a>"
-    extra_link_template =  "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-cog'></span> &nbsp;Extra code</a>"
-    back_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-arrow-up'></span> &nbsp;Back to all pages</a>"
+    page_link_template = "<a href='#{:s}' class='btn space-btn btn-primary'>{:s}</a>"
 
     links = ""
     for i in range(1, len(pages)):
         links += page_link_template.format(pages[i]["id"], pages[i]["title"]) + " "
     outFile.write(pages_header.format(pages[0]["id"], pages[0]["title"], pages[0]["text"], links))
+
+    view_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span> &nbsp;View</a>"
+    source_link_template = "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Source</a>"
+    extra_link_template =  "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-cog'></span> &nbsp;Extra code</a>"
+    back_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-arrow-up'></span> &nbsp;Back to all pages</a>"
 
     for i in range(1, len(pages)):
         p = pages[i]
