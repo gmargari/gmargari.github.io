@@ -32,7 +32,7 @@ pages = [
 },
 {
     "id"     : "kairos",
-    "title"  : "Ioannina Weather Forecast",
+    "title"  : "Ioannina Forecast",
     "text"   : "Accurately predict the weather in Ioannina city for any future day.",
     "urlsuf" : "kairos/",
     "image"  : "kairos.jpeg"
@@ -101,6 +101,9 @@ def addHtmlHeader(outFile):
         .space-btn {
             margin-left: 2px;
             margin-top: 6px;
+        }
+        .space-img {
+            margin-top: 10px;
         }
     </style>
     """
@@ -220,7 +223,7 @@ def addContent(outFile):
                         {:s}
                 </div>
                 <div class="{:s}">
-                    <img class="img-responsive img-thumbnail" src="img/{:s}" alt="">
+                    <img class="img-responsive space-img img-thumbnail" src="img/{:s}" alt="">
                 </div>
             </div>
         </div>
@@ -235,10 +238,10 @@ def addContent(outFile):
         links += page_link_template.format(pages[i]["id"], pages[i]["title"]) + " "
     outFile.write(pages_header.format(pages[0]["id"], pages[0]["title"], pages[0]["text"], links))
 
-    view_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-eye-open'></span> &nbsp;View</a>"
-    source_link_template = "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Source</a>"
-    extra_link_template =  "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-cog'></span> &nbsp;Extra code</a>"
-    back_link_template =   "<a href='{:s}' class='btn btn-info'><span class='glyphicon glyphicon-arrow-up'></span> &nbsp;Back to all pages</a>"
+    view_link_template =   "<a href='{:s}' class='btn btn-info space-btn'><span class='glyphicon glyphicon-eye-open'></span> &nbsp;View</a>"
+    source_link_template = "<a href='{:s}' class='btn btn-info space-btn'><span class='glyphicon glyphicon-pencil'></span> &nbsp;Source</a>"
+    extra_link_template =  "<a href='{:s}' class='btn btn-info space-btn'><span class='glyphicon glyphicon-cog'></span> &nbsp;Extra code</a>"
+    back_link_template =   "<a href='{:s}' class='btn btn-info space-btn'><span class='glyphicon glyphicon-arrow-up'></span> &nbsp;All pages</a>"
 
     for i in range(1, len(pages)):
         p = pages[i]
