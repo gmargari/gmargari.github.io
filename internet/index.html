@@ -11,6 +11,14 @@
             var mycontent = '<img src="img/f5.jpg"><br><br>(Note: keyboard color may vary)';
             $('#popover').popover({placement: 'bottom', content: mycontent, trigger: "hover", html: true});
         });
+        
+        // Preload images
+        $.preloadImages = function() {
+            for (var i = 0; i < arguments.length; i++) {
+                $("<img />").attr("src", arguments[i]);
+            }
+        }
+        $.preloadImages("img/f5.jpg");
     </script>
 </head>
 <body>
