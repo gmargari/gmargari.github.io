@@ -3,15 +3,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
     <title>Internet Check</title>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.2.3.2.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.3.2.0.min.css">
+    <script type="text/javascript" src="../js/jquery.1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.3.2.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var mycontent = '<img src="img/f5.jpg"><br><br>(Note: keyboard color may vary)';
+            $('#popover').popover({placement: 'bottom', content: mycontent, trigger: "hover", html: true});
+        });
+    </script>
 </head>
 <body>
-    <div class="hero-unit" style="width: 500px; margin-left: auto; margin-right: auto; margin-top: 50px;">
-        <center>
-            <h2>Do I have Internet?</h2>
-            <br>
-            <a class="btn btn-success btn-large"><i class="icon-white icon-ok"></i> Yes, you have Internet!</a>
-        </center>
+	<div class="panel panel-default" style="width: 500px; margin-left: auto; margin-right: auto; margin-top: 20px;">
+		<div class="panel-body" style="height: 200px;">
+			<center>
+				<h2>Do I have Internet?</h2>
+				<br>
+				<a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span> Yes, you have Internet!</a>
+			</center>
+		</div>
+		<div class="panel-footer">
+			<b>Instructions</b>: How to check if you have internets:
+			<ol>
+				<li>Open a web browser</li>
+				<li>Go to <a href="http://gmargari.github.io/internet">http://gmargari.github.io/internet</a></li>
+				<li>Read what the page says</li>
+			</ol>
+			<b>Hint</b>: If you are already on the page described above,
+            just hit the <a id="popover" class="btn btn-default btn-xs">F5</a>
+            key on your keyboard to check your internets.
+		</div>
     </div>
     <p style="text-align: center; margin: 10px">
       <a href="http://gmargari.github.io/"><img style="vertical-align:middle" src="../img/more_w.gif"></a>
