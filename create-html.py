@@ -37,6 +37,13 @@ pages = [
     "urlsuf" : "kairos/",
     "image"  : "kairos.jpeg"
 },
+{
+    "id"     : "internet",
+    "title"  : "Internet Check",
+    "text"   : "Fast and easy way to check your internet connection.",
+    "urlsuf" : "internet/",
+    "image"  : "internet.jpeg"
+},
 ]
 
 
