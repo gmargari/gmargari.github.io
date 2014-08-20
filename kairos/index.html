@@ -10,41 +10,56 @@
 
     <script type="text/javascript">
         $(function(){
+            // Setup datepicker
             var nowTemp = new Date();
             var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+			var curDate = nowTemp;
 
             var checkin = $('#datapicker').datepicker({
-                format: 'dd/mm/yyyy',
+                format: 'd/m/yyyy',
                 beforeShowDay: function (date) {
                     return date.valueOf() >= now.valueOf();
                 },
                 autoclose: true
+            }).on('changeDate', function(ev) {
+                curDate = new Date(ev.date);
             });
 
+            // Set current date to datepicker
             checkin.datepicker("update", now);
 
             function sleep(millis, callback) {
                 setTimeout(function() { callback(); }, millis);
             }
 
-            function addLoadingImage() {
-                $('#forecast-result').html('<img src="img/loading.gif" class="img-responsive center-block">');
+            // When user clicks the Forecast button, predict the weather
+            $('#forecast').on('click', function (e) {
+                predictWeather();
+            })
+
+            function predictWeather() {
+                showLoadingImage();
+                milisecs = 3000 + Math.random() * 2000; // "calculations" take 3-5 sec
+                sleep(milisecs, addWeatherImage);
+            }
+
+            function showLoadingImage() {
+				var date_str = [curDate.getDate(), curDate.getMonth()+1, curDate.getFullYear()].join('/');
+                var content = '<br><center>Predicting the weather in Ioannina for ' + date_str + ', please wait ...</center>';
+                content += '<br><br><img src="img/loading.gif" class="img-responsive center-block">';
+                $('#forecast-result').html(content);
             }            
 
             function addWeatherImage() {
-                $('#forecast-result').html('<img src="img/weezle_rain.png" width="200px;" class="img-responsive center-block">');                 
+				var content = '<img src="img/weezle_rain.png" width="200px;" class="img-responsive center-block">'
+                $('#forecast-result').html(content);
             }
 
-            $('#forecast').on('click', function (e) {
-                addLoadingImage();
-                milisecs = 3000 + Math.random() * 2000; // "calculations" take 3-5 sec
-                sleep(milisecs, addWeatherImage);
-            })
-
+            // Preload images
             $.preloadImages = function() {
-              for (var i = 0; i < arguments.length; i++) {
-                $("<img />").attr("src", arguments[i]);
-              }
+                for (var i = 0; i < arguments.length; i++) {
+                    $("<img />").attr("src", arguments[i]);
+                }
             }
 
             $.preloadImages("img/weezle_rain.png", "img/loading.gif");
