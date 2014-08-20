@@ -309,7 +309,7 @@ def addFooter(outFile):
 def addHtmlFooter(outFile):
 
     html_footer = """
-    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.1.11.1.min.js"></script>
     <script src="js/bootstrap.3.2.0.min.js"></script>
 </body>
 
