@@ -1,0 +1,245 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+out_filename = "index.html"
+page_title = "Comparisons"
+
+comparisons = [
+{
+    "item1"  : "Φίλιππος Πλιάτσικας",
+    "img1"   : "pliatsikas.jpg",
+    "item2"  : "Μία Πέτρα",
+    "img2"   : "stone.jpg",
+    "questions" : [
+            [ "Μπορεί να συνθέσει αξιόλογη μουσική", "n", "n" ],
+            [ "Έχει ωραία φωνή", "n", "n" ],
+            [ "Μπορεί να χρησιμοποιηθεί για λιθοβολισμό", "n", "y" ],
+            [ "Νικάει το ψαλίδι", "n", "y" ],
+            [ "Έχει ενεπνεύσει τη δημιουργία αξιόλογων μουσικών ειδών", "n", "y" ],
+            [ "Μπορεί να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί", "y", "n" ],
+        ]
+},
+]
+
+
+
+#===============================================================================
+# addHtmlHeader()
+#===============================================================================
+def addHtmlHeader(outFile):
+    html_header = """<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <title>{:s}</title>
+    <script type="text/javascript" src="../js/jquery.1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.3.2.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.3.2.0.min.css">
+    <!-- Google Analytics -->
+    {:s}
+    
+    {:s}
+
+    {:s}
+</head>
+<body style="background-color: #eeeeee">
+"""
+    google_analytics = """<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-53994042-1', 'auto');
+      ga('send', 'pageview');
+    </script>"""
+
+    extra_script = """<script>
+       $(function(){
+          $(".prev-slide").click(function(){
+             $("#myCarousel").carousel('prev');
+          });
+          $(".next-slide").click(function(){
+             $("#myCarousel").carousel('next');
+          });
+          // Start carousel paused
+          $("#myCarousel").carousel('pause');
+       });
+    </script>"""
+
+    extra_style = """<style>
+        .glyphicon-ok {
+            color: #00aa00;
+        }
+        .glyphicon-remove {
+            color: #aa0000;
+        }
+        .col-xs-6 {
+            text-align: left;
+        }
+        td.col-xs-3  {
+            text-align: center;
+        }
+        .borderless tbody tr td, .borderless thead tr th {
+            border: none;
+        }
+        table.borderless {
+            margin: 0px;
+        }
+        .text-middle {
+            vertical-align: middle;
+        }
+        .panel {
+            width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        .panel-title {
+            font-size: 16px;
+            text-align: center;
+        }
+        .table-condensed {
+            margin-bottom: 0px;
+        }
+    </style>"""
+    
+    outFile.write(html_header.format(page_title, google_analytics, extra_script, extra_style))
+
+#===============================================================================
+# addContent()
+#===============================================================================
+def addContent(outFile):
+
+    carousel_header = """
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">"""
+
+    carousel_item_header = """
+
+            <!-- Carousel item -->
+            <div class="item{:s}">"""
+
+    carousel_item_footer = """
+            </div>
+            <!-- /Carousel item -->"""
+
+    carousel_footer = """
+        </div>
+    </div>
+    <!-- /Carousel -->
+"""
+        
+    panel_template = """
+
+                <!-- Panel -->
+                <div class="panel panel-default">
+                    <!-- Panel header -->
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Prev</a></div>
+                            <div class="col-xs-8"><h4 class="text-center">{:s}</h4></div>
+                            <div class="col-xs-2"><a class="btn btn-default next-slide">Next</a></div>
+                        </div>
+                    </div>
+                    <!-- Panel body -->
+                    <div class="panel-body">
+                    
+                        <!-- Header table with names and images -->
+                        <table class="table borderless table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td class="col-xs-6"></td>
+                                    <td class="col-xs-3">
+                                        <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/{:s}"><br>
+                                        <h5>{:s}</h5>
+                                    </td>
+                                    <td class="col-xs-3">
+                                        <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/{:s}"><br>
+                                        <h5>{:s}</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Basic table with comparison questions -->
+                        <table class="table table-hover table-condensed">
+                            <tbody>{:s}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Panel footer -->
+                    <div class="panel-footer">
+                        <small>
+                        Σημειώσεις:<br>
+                         &nbsp; 1. Rock 'n' Roll, Stoner
+                        </small>
+                    </div>
+                </div>
+                <!-- /Panel -->
+"""
+
+    question_template = """
+                                <tr>
+                                    <td class="col-xs-6">{:s}:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-3" style="vertical-align: middle">{:s}</td>
+                                </tr>"""
+
+    y_icon = '<span class="glyphicon glyphicon-ok"></span>'
+    n_icon = '<span class="glyphicon glyphicon-remove"></span>'
+    
+    outFile.write(carousel_header)
+    
+    i = 0
+    for c in comparisons:
+        if (i == 0):
+            outFile.write(carousel_item_header.format(" active"))
+        else:
+            outFile.write(carousel_item_header.format(""))
+
+        title = c["item1"] + " vs. " + c["item2"];
+        q_content = ""
+        sum1 = sum( [1 for q in c["questions"] if q[1] == "y"] )
+        sum2 = sum( [1 for q in c["questions"] if q[2] == "y"] )
+        for q in c["questions"]:
+            icon1 = y_icon if q[1] == "y" else n_icon
+            icon2 = y_icon if q[2] == "y" else n_icon
+            q_content += question_template.format(q[0], icon1, icon2)
+        q_content += question_template.format("Σύνολο", "<b>" + str(sum1) + "</b>", "<b>" + str(sum2) + "</b>")
+        outFile.write(panel_template.format(title, c["img1"], c["item1"], c["img2"], c["item2"], q_content))
+
+        outFile.write(carousel_item_footer)
+        i += 1
+
+    outFile.write(carousel_footer)
+    
+#===============================================================================
+# addHtmlFooter()
+#===============================================================================
+def addHtmlFooter(outFile):
+
+    html_footer = """
+    <p style="text-align: center; margin: 10px">
+      <a href="http://gmargari.github.io/"><img style="vertical-align:middle" src="../img/more_w.gif"></a>
+    </p>
+
+</body>
+</html>
+"""
+    outFile.write(html_footer)
+
+#==============================================================================
+# main()
+#==============================================================================
+def main():
+    with open(out_filename, "w") as outFile:
+    #        outFile.write(header.format(image_prefix + "/images/quote-0.jpg", file_lines[0].split("#")[0]))
+        addHtmlHeader(outFile)
+        addContent(outFile)
+        addHtmlFooter(outFile)
+
+if __name__ == "__main__":
+    main()
+

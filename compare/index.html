@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
     <title>Comparisons</title>
     <script type="text/javascript" src="../js/jquery.1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.3.2.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.3.2.0.min.css">
     <!-- Google Analytics -->
     <script>
@@ -14,6 +15,20 @@
       ga('create', 'UA-53994042-1', 'auto');
       ga('send', 'pageview');
     </script>
+    
+    <script>
+       $(function(){
+          $(".prev-slide").click(function(){
+             $("#myCarousel").carousel('prev');
+          });
+          $(".next-slide").click(function(){
+             $("#myCarousel").carousel('next');
+          });
+          // Start carousel paused
+          $("#myCarousel").carousel('pause');
+       });
+    </script>
+
     <style>
         .glyphicon-ok {
             color: #00aa00;
@@ -54,73 +69,100 @@
 </head>
 <body style="background-color: #eeeeee">
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4 class="panel-title">Φίλιππος Πλιάτσικας vs. Μία Πέτρα</h4>
-        </div>
-        <div class="panel-body">
-            <table class="table borderless table-condensed">
-                <tbody>
-                    <tr>
-                        <td class="col-xs-6"></td>
-                        <td class="col-xs-3">
-                            <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/pliatsikas.jpg"><br>
-                            <h5>Φίλιππος Πλιάτσικας</h5>
-                        </td>
-                        <td class="col-xs-3">
-                            <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/stone.jpg"><br>
-                            <h5>Μία Πέτρα</h5>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="table table-hover table-condensed">
-                <tbody>
-                    <tr>
-                        <td class="col-xs-6">Μπορεί να συνθέσει αξιόλογη μουσική:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Έχει ωραία φωνή:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Μπορεί να χρησιμοποιηθεί για λιθοβολισμό:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Νικάει το ψαλίδι:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Έχει ενεπνεύσει τη δημιουργία γαμάτων μουσικών ειδών:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span style="padding-left: 9px"> </span><span class="glyphicon glyphicon-ok"></span> <sup>1</sup></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Μπορεί να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="col-xs-6">Σύνολο:</td>
-                        <td class="col-xs-3" style="vertical-align: middle"><b>1</b></td>
-                        <td class="col-xs-3" style="vertical-align: middle"><b>3</b></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="panel-footer">
-            <small>
-            Σημειώσεις:<br>
-             &nbsp; 1. Rock 'n' Roll, Stoner</li>
-            </small>
+    <!-- Carousel -->
+    <div id="myCarousel" class="carousel slide">
+        <div class="carousel-inner">
+
+            <!-- Carousel item -->
+            <div class="item active">
+
+                <!-- Panel -->
+                <div class="panel panel-default">
+                    <!-- Panel header -->
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Prev</a></div>
+                            <div class="col-xs-8"><h4 class="text-center">Φίλιππος Πλιάτσικας vs. Μία Πέτρα</h4></div>
+                            <div class="col-xs-2"><a class="btn btn-default next-slide">Next</a></div>
+                        </div>
+                    </div>
+                    <!-- Panel body -->
+                    <div class="panel-body">
+                    
+                        <!-- Header table with names and images -->
+                        <table class="table borderless table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td class="col-xs-6"></td>
+                                    <td class="col-xs-3">
+                                        <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/pliatsikas.jpg"><br>
+                                        <h5>Φίλιππος Πλιάτσικας</h5>
+                                    </td>
+                                    <td class="col-xs-3">
+                                        <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/stone.jpg"><br>
+                                        <h5>Μία Πέτρα</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Basic table with comparison questions -->
+                        <table class="table table-hover table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td class="col-xs-6">Μπορεί να συνθέσει αξιόλογη μουσική:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Έχει ωραία φωνή:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Μπορεί να χρησιμοποιηθεί για λιθοβολισμό:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Νικάει το ψαλίδι:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Έχει ενεπνεύσει τη δημιουργία αξιόλογων μουσικών ειδών:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Μπορεί να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Σύνολο:</td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><b>1</b></td>
+                                    <td class="col-xs-3" style="vertical-align: middle"><b>3</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Panel footer -->
+                    <div class="panel-footer">
+                        <small>
+                        Σημειώσεις:<br>
+                         &nbsp; 1. Rock 'n' Roll, Stoner
+                        </small>
+                    </div>
+                </div>
+                <!-- /Panel -->
+
+            </div>
+            <!-- /Carousel item -->
         </div>
     </div>
+    <!-- /Carousel -->
+
     <p style="text-align: center; margin: 10px">
       <a href="http://gmargari.github.io/"><img style="vertical-align:middle" src="../img/more_w.gif"></a>
     </p>
