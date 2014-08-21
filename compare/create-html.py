@@ -79,6 +79,9 @@ def addHtmlHeader(outFile):
         td.col-xs-3  {
             text-align: center;
         }
+        td.col-xs-1  {
+            text-align: center;
+        }
         .borderless tbody tr td, .borderless thead tr th {
             border: none;
         }
@@ -168,23 +171,30 @@ def addContent(outFile):
                             <tbody>{:s}
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Panel footer -->
-                    <div class="panel-footer">
-                        <small>
-                        Σημειώσεις:<br>
-                         &nbsp; 1. Rock 'n' Roll, Stoner
-                        </small>
-                    </div>
+                    </div>{:s}
                 </div>
                 <!-- /Panel -->
 """
 
-    question_template = """
+    panel_footer_template = """
+                <!-- Panel footer -->
+                <div class="panel-footer">
+                    <small>
+                    Σημειώσεις:<br>{:s}
+                    </small>
+                </div>
+    """
+
+
+    table_row_template = """
                                 <tr>
                                     <td class="col-xs-6">{:s}:</td>
-                                    <td class="col-xs-3" style="vertical-align: middle">{:s}</td>
-                                    <td class="col-xs-3" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
                                 </tr>"""
 
     y_icon = '<span class="glyphicon glyphicon-ok"></span>'
@@ -199,16 +209,38 @@ def addContent(outFile):
         else:
             outFile.write(carousel_item_header.format(""))
 
-        title = c["item1"] + " vs. " + c["item2"];
-        q_content = ""
+        
+        panel_title = c["item1"] + " vs. " + c["item2"];
+        title1 = c["item1"]
+        title2 = c["item2"]
+        image1 = c["img1"]
+        image2 = c["img2"]
+
+        # Create the rows of the table, one row per question
+        table_rows = ""
+        notes = 0
+        for q in c["questions"]:
+            td1 = q[0]                              # question text
+            td2 = y_icon if q[1] == "y" else n_icon # first icon
+            td3 = y_icon if q[2] == "y" else n_icon # second icon
+            notes1 = ""
+            notes2 = ""
+            table_rows += table_row_template.format(td1, td2, notes1, td3, notes2)
+
+        # Add a final row with the sum of tick marks per column
         sum1 = sum( [1 for q in c["questions"] if q[1] == "y"] )
         sum2 = sum( [1 for q in c["questions"] if q[2] == "y"] )
-        for q in c["questions"]:
-            icon1 = y_icon if q[1] == "y" else n_icon
-            icon2 = y_icon if q[2] == "y" else n_icon
-            q_content += question_template.format(q[0], icon1, icon2)
-        q_content += question_template.format("Σύνολο", "<b>" + str(sum1) + "</b>", "<b>" + str(sum2) + "</b>")
-        outFile.write(panel_template.format(title, c["img1"], c["item1"], c["img2"], c["item2"], q_content))
+        td1 = "Σύνολο"
+        td2 = "<b>" + str(sum1) + "</b>"
+        td3 = "<b>" + str(sum2) + "</b>"
+        notes1 = ""
+        notes2 = ""
+        table_rows += table_row_template.format(td1, td2, notes1, td3, notes2)
+
+        # If any question had a note, add a footer to the panel
+        panel_footer = ""
+
+        outFile.write(panel_template.format(panel_title, image1, title1, image2, title2, table_rows, panel_footer))
 
         outFile.write(carousel_item_footer)
         i += 1
