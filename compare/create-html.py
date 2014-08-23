@@ -63,6 +63,22 @@ def addHtmlHeader(outFile):
           });
           // Start carousel paused
           $("#myCarousel").carousel('pause');
+
+          // Go to next/previous carousel item using arrow keys
+          $(document).keydown(function(e) {
+              switch(e.which) {
+                  case 37: // left
+                  $("#myCarousel").carousel('prev');
+                  break;
+
+                  case 39: // right
+                  $("#myCarousel").carousel('next');
+                  break;
+
+                  default: return; // exit this handler for other keys
+              }
+              e.preventDefault(); // prevent the default action (scroll / move caret)
+          });
        });
     </script>"""
 
