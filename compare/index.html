@@ -26,6 +26,22 @@
           });
           // Start carousel paused
           $("#myCarousel").carousel('pause');
+
+          // Go to next/previous carousel item using arrow keys
+          $(document).keydown(function(e) {
+              switch(e.which) {
+                  case 37: // left
+                  $("#myCarousel").carousel('prev');
+                  break;
+
+                  case 39: // right
+                  $("#myCarousel").carousel('next');
+                  break;
+
+                  default: return; // exit this handler for other keys
+              }
+              e.preventDefault(); // prevent the default action (scroll / move caret)
+          });
        });
     </script>
 
@@ -39,11 +55,14 @@
         .col-xs-6 {
             text-align: left;
         }
-        td.col-xs-3  {
+        td.qimage {
             text-align: center;
         }
-        td.col-xs-1  {
+        td.qmark {
             text-align: center;
+        }
+        td.qnote {
+            text-align: left;
         }
         .borderless tbody tr td, .borderless thead tr th {
             border: none;
@@ -80,11 +99,11 @@
             <div class="item active">
 
                 <!-- Panel -->
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <!-- Panel header -->
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Prev</a></div>
+                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Previous</a></div>
                             <div class="col-xs-8"><h4 class="text-center">Φίλιππος Πλιάτσικας vs. Μία Πέτρα</h4></div>
                             <div class="col-xs-2"><a class="btn btn-default next-slide">Next</a></div>
                         </div>
@@ -97,11 +116,11 @@
                             <tbody>
                                 <tr>
                                     <td class="col-xs-6"></td>
-                                    <td class="col-xs-3">
+                                    <td class="col-xs-3 qimage">
                                         <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/pliatsikas.jpg"><br>
                                         <h5>Φίλιππος Πλιάτσικας</h5>
                                     </td>
-                                    <td class="col-xs-3">
+                                    <td class="col-xs-3 qimage">
                                         <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/stone.jpg"><br>
                                         <h5>Μία Πέτρα</h5>
                                     </td>
@@ -115,69 +134,76 @@
                                 <tr>
                                     <td class="col-xs-6">Μπορεί να συνθέσει αξιόλογη μουσική:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                 </tr>
                                 <tr>
                                     <td class="col-xs-6">Έχει ωραία φωνή:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-6">Μπορεί να χρησιμοποιηθεί για λιθοβολισμό:</td>
-                                    <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
-                                    <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
-                                </tr>
-                                <tr>
-                                    <td class="col-xs-6">Νικάει το ψαλίδι:</td>
-                                    <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
-                                    <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                 </tr>
                                 <tr>
                                     <td class="col-xs-6">Έχει ενεπνεύσει τη δημιουργία αξιόλογων μουσικών ειδών:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"><sup>1</sup></td>
                                 </tr>
                                 <tr>
-                                    <td class="col-xs-6">Μπορεί να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί:</td>
+                                    <td class="col-xs-6">Μπορεί να χρησιμοποιηθεί για λιθοβολισμό:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Νικάει το ψαλίδι:</td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
+                                </tr>
+                                <tr>
+                                    <td class="col-xs-6">Μπορείς να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί:</td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-ok"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><span class="glyphicon glyphicon-remove"></span></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                 </tr>
                                 <tr>
                                     <td class="col-xs-6">Σύνολο:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><b>1</b></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><b>1</b></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"><b>3</b></td>
-                                    <td class="col-xs-1" style="vertical-align: middle"></td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle"><b>3</b></td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle"></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                <!-- Panel footer -->
+                <div class="panel-footer">
+                    <small>
+                    Σημειώσεις:<br>&nbsp;&nbsp;&nbsp;&nbsp;1. Rock 'n' Roll, Stoner
+                    </small>
+                </div>
+
                 </div>
                 <!-- /Panel -->
 

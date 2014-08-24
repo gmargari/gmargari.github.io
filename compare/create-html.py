@@ -13,10 +13,10 @@ comparisons = [
     "questions" : [
             [ "Μπορεί να συνθέσει αξιόλογη μουσική", "n", "n" ],
             [ "Έχει ωραία φωνή", "n", "n" ],
+            [ "Έχει ενεπνεύσει τη δημιουργία αξιόλογων μουσικών ειδών", "n", "y", "c2: Rock 'n' Roll, Stoner" ],
             [ "Μπορεί να χρησιμοποιηθεί για λιθοβολισμό", "n", "y" ],
             [ "Νικάει το ψαλίδι", "n", "y" ],
-            [ "Έχει ενεπνεύσει τη δημιουργία αξιόλογων μουσικών ειδών", "n", "y" ],
-            [ "Μπορεί να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί", "y", "n" ],
+            [ "Μπορείς να χρησιμοποιήσεις φωτογραφία του/της για να ταΐσεις ένα παιδί", "y", "n" ],
         ]
 },
 ]
@@ -160,7 +160,7 @@ def addContent(outFile):
                     <!-- Panel header -->
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Prev</a></div>
+                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Previous</a></div>
                             <div class="col-xs-8"><h4 class="text-center">{:s}</h4></div>
                             <div class="col-xs-2"><a class="btn btn-default next-slide">Next</a></div>
                         </div>
