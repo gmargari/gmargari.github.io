@@ -30,14 +30,14 @@ def addHtmlHeader(outFile):
     html_header = """<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>{:s}</title>
     <script type="text/javascript" src="../js/jquery.1.11.1.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap.3.2.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.3.2.0.min.css">
     <!-- Google Analytics -->
     {:s}
-    
+
     {:s}
 
     {:s}
@@ -125,7 +125,7 @@ def addHtmlHeader(outFile):
             margin-bottom: 0px;
         }
     </style>"""
-    
+
     outFile.write(html_header.format(page_title, google_analytics, extra_script, extra_style))
 
 #===============================================================================
@@ -152,7 +152,7 @@ def addContent(outFile):
     </div>
     <!-- /Carousel -->
 """
-        
+
     panel_template = """
 
                 <!-- Panel -->
@@ -167,7 +167,7 @@ def addContent(outFile):
                     </div>
                     <!-- Panel body -->
                     <div class="panel-body">
-                    
+
                         <!-- Header table with names and images -->
                         <table class="table borderless table-condensed">
                             <tbody>
@@ -221,23 +221,27 @@ def addContent(outFile):
     y_icon = '<span class="glyphicon glyphicon-ok"></span>'
     n_icon = '<span class="glyphicon glyphicon-remove"></span>'
     u_icon = '<b style="color: #666666;">?</b>'
-    
+
+    # Header code of carousel
     outFile.write(carousel_header)
-    
+
     carousel_items = 0
     for c in comparisons:
+        # Header code of current carousel item (first item of carousel should
+        # have class "active")
         if (carousel_items == 0):
             outFile.write(carousel_item_header.format(" active"))
         else:
             outFile.write(carousel_item_header.format(""))
-        
+
+        # Panel title, and images and titles of items to compare
         panel_title = c["item1"] + " vs. " + c["item2"];
         title1 = c["item1"]
         title2 = c["item2"]
         image1 = c["img1"]
         image2 = c["img2"]
 
-        # Create the rows of the table, one row per question
+        # Create the rows of the comparison table, one row per question
         table_rows = ""
         notes = 0
         for q in c["questions"]:
@@ -286,14 +290,17 @@ def addContent(outFile):
             nav_prev = ""
             nav_next = ""
 
+        # Write the code for the panel
         outFile.write(panel_template.format(nav_prev, panel_title, nav_next,
             image1, title1, image2, title2, table_rows, panel_footer))
 
+        # Footer code of current carousel item
         outFile.write(carousel_item_footer)
         carousel_items += 1
 
+    # Footer code of carousel
     outFile.write(carousel_footer)
-    
+
 #===============================================================================
 # addHtmlFooter()
 #===============================================================================
