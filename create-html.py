@@ -44,6 +44,13 @@ pages = [
     "urlsuf" : "internet/",
     "image"  : "internet.jpeg"
 },
+{
+    "id"     : "compare",
+    "title"  : "Compare 'em",
+    "text"   : "Qualitative comparisons of various things.",
+    "urlsuf" : "compare/",
+    "image"  : "compare.jpeg"
+},
 ]
 
 
