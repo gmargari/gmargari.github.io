@@ -92,11 +92,14 @@ def addHtmlHeader(outFile):
         .col-xs-6 {
             text-align: left;
         }
-        td.col-xs-3  {
+        td.qimage {
             text-align: center;
         }
-        td.col-xs-1  {
+        td.qmark {
             text-align: center;
+        }
+        td.qnote {
+            text-align: left;
         }
         .borderless tbody tr td, .borderless thead tr th {
             border: none;
@@ -153,7 +156,7 @@ def addContent(outFile):
     panel_template = """
 
                 <!-- Panel -->
-                <div class="panel panel-default">
+                <div class="panel panel-primary">
                     <!-- Panel header -->
                     <div class="panel-heading">
                         <div class="row">
@@ -170,11 +173,11 @@ def addContent(outFile):
                             <tbody>
                                 <tr>
                                     <td class="col-xs-6"></td>
-                                    <td class="col-xs-3">
+                                    <td class="col-xs-3 qimage">
                                         <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/{:s}"><br>
                                         <h5>{:s}</h5>
                                     </td>
-                                    <td class="col-xs-3">
+                                    <td class="col-xs-3 qimage">
                                         <img class="img-responsive img-thumbnail" style="margin: 0px;" src="img/{:s}"><br>
                                         <h5>{:s}</h5>
                                     </td>
@@ -192,39 +195,38 @@ def addContent(outFile):
                 <!-- /Panel -->
 """
 
-    panel_footer_template = """
-                <!-- Panel footer -->
-                <div class="panel-footer">
-                    <small>
-                    Σημειώσεις:<br>{:s}
-                    </small>
-                </div>
-    """
-
-
     table_row_template = """
                                 <tr>
                                     <td class="col-xs-6">{:s}:</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
-                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle">{:s}</td>
                                     <td class="col-xs-1"></td>
-                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
-                                    <td class="col-xs-1" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1 qmark" style="vertical-align: middle">{:s}</td>
+                                    <td class="col-xs-1 qnote" style="vertical-align: middle">{:s}</td>
                                 </tr>"""
+
+    panel_footer_template = """
+                <!-- Panel footer -->
+                <div class="panel-footer">
+                    <small>
+                    Σημειώσεις:{:s}
+                    </small>
+                </div>
+"""
 
     y_icon = '<span class="glyphicon glyphicon-ok"></span>'
     n_icon = '<span class="glyphicon glyphicon-remove"></span>'
+    u_icon = '<b style="color: #666666;">?</b>'
     
     outFile.write(carousel_header)
     
-    i = 0
+    carousel_items = 0
     for c in comparisons:
-        if (i == 0):
+        if (carousel_items == 0):
             outFile.write(carousel_item_header.format(" active"))
         else:
             outFile.write(carousel_item_header.format(""))
-
         
         panel_title = c["item1"] + " vs. " + c["item2"];
         title1 = c["item1"]
@@ -241,6 +243,14 @@ def addContent(outFile):
             td3 = y_icon if q[2] == "y" else n_icon # second icon
             notes1 = ""
             notes2 = ""
+            for j in range(3, len(q)):
+                note = q[j]
+                if (note[0:3] == "c1:"):
+                    notes += 1
+                    notes1 = "<sup>" + str(notes) + "</sup>"
+                if (note[0:3] == "c2:"):
+                    notes += 1
+                    notes2 = "<sup>" + str(notes) + "</sup>"
             table_rows += table_row_template.format(td1, td2, notes1, td3, notes2)
 
         # Add a final row with the sum of tick marks per column
@@ -255,11 +265,20 @@ def addContent(outFile):
 
         # If any question had a note, add a footer to the panel
         panel_footer = ""
+        if (notes > 0):
+            notes = 1
+            notes_text = ""
+            for q in c["questions"]:
+                for j in range(3, len(q)):
+                    note_text = q[j][4:]
+                    notes_text += "<br>&nbsp;&nbsp;&nbsp;&nbsp;" + str(notes) + ". " + note_text
+                    notes += 1
+            panel_footer = panel_footer_template.format(notes_text)
 
         outFile.write(panel_template.format(panel_title, image1, title1, image2, title2, table_rows, panel_footer))
 
         outFile.write(carousel_item_footer)
-        i += 1
+        carousel_items += 1
 
     outFile.write(carousel_footer)
     
