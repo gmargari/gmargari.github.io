@@ -160,9 +160,9 @@ def addContent(outFile):
                     <!-- Panel header -->
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-xs-2"><a class="btn btn-default prev-slide">Previous</a></div>
+                            <div class="col-xs-2">{:s}</div>
                             <div class="col-xs-8"><h4 class="text-center">{:s}</h4></div>
-                            <div class="col-xs-2"><a class="btn btn-default next-slide">Next</a></div>
+                            <div class="col-xs-2">{:s}</div>
                         </div>
                     </div>
                     <!-- Panel body -->
@@ -214,6 +214,9 @@ def addContent(outFile):
                     </small>
                 </div>
 """
+
+    prev_button = '<a class="btn btn-default prev-slide">Previous</a>'
+    next_button = '<a class="btn btn-default next-slide">Next</a>'
 
     y_icon = '<span class="glyphicon glyphicon-ok"></span>'
     n_icon = '<span class="glyphicon glyphicon-remove"></span>'
@@ -275,7 +278,16 @@ def addContent(outFile):
                     notes += 1
             panel_footer = panel_footer_template.format(notes_text)
 
-        outFile.write(panel_template.format(panel_title, image1, title1, image2, title2, table_rows, panel_footer))
+        # If there are more than 1 comparison panels, add navigation buttons
+        if (len(comparisons) > 1):
+            nav_prev = prev_button
+            nav_next = next_button
+        else:
+            nav_prev = ""
+            nav_next = ""
+
+        outFile.write(panel_template.format(nav_prev, panel_title, nav_next,
+            image1, title1, image2, title2, table_rows, panel_footer))
 
         outFile.write(carousel_item_footer)
         carousel_items += 1
